@@ -6,25 +6,26 @@ namespace kata_MarsRover
 {
     public class Grid
     {
-        public int Width { get; }
-        public int Length { get; }
-
-        private Square[,] _squares; 
+        private readonly List<Square> _squares;
+        private int _width { get; }
+        private int _length { get; }
+        
+        
         public Grid(int width, int length)
         {
-            Width = width;
-            Length = length;
-            _squares = new Square[width,length];
+            _width = width;
+            _length = length;
+            _squares = new List<Square>();
         }
 
-        public Square[,] GenerateGrid()
+        public List<Square> GenerateGrid()
         {
-            for (int row = 0; row < Width; row++)
+            for (int row = 0; row < _width; row++)
             {
-                for (int column = 0; column < Length; column++)
+                for (int column = 0; column < _length; column++)
                 {
                     var square = new Square(row, column);
-                    _squares[row, column] = square;
+                    _squares.Add(square);
                 }
             }
 
