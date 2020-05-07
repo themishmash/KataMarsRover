@@ -1,6 +1,6 @@
 namespace MarsRoverTests
 {
-    public class Square
+    public class Square // TODO: rename to position
     {
         public Square(int xCoordinate, int yCoordinate)
         {
