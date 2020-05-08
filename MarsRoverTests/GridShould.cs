@@ -10,11 +10,11 @@ namespace MarsRoverTests
         public void GenerateSquaresInGridWithCorrectCoordinates()
         {
             var sut = new Grid(3, 3);
-            var expectedGrid = new List<Square>()
+            var expectedGrid = new List<Position>()
             {
-                new Square(0, 0), new Square(0, 1), new Square(0, 2),
-                new Square(1, 0), new Square(1, 1), new Square(1, 2),
-                new Square(2, 0), new Square(2, 1), new Square(2, 2),
+                new Position(0, 0), new Position(0, 1), new Position(0, 2),
+                new Position(1, 0), new Position(1, 1), new Position(1, 2),
+                new Position(2, 0), new Position(2, 1), new Position(2, 2),
 
             };
 

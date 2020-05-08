@@ -5,9 +5,9 @@ namespace kata_MarsRover
 {
     public interface IGrid
     {
-        public int Width { get; }
+        public int MaxXCoordinate { get; }
         
-        public int Length { get; }
-        List<Square> GenerateGrid();
+        public int MaxYCoordinate { get; }
+        IList<Position> GenerateGrid();
     }
 }

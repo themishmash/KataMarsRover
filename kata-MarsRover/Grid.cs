@@ -4,32 +4,32 @@ using MarsRoverTests;
 
 namespace kata_MarsRover
 {
-    public class Grid
+    public class Grid : IGrid
     {
-        private readonly List<Square> _squares;
-        public int Width { get; }
-        public int Length { get; }
+        private readonly IList<Position> _positions;
+        public int MaxXCoordinate { get; }
+        public int MaxYCoordinate { get; }
         
         
-        public Grid(int width, int length)
+        public Grid(int maxXCoordinate, int maxYCoordinate)
         {
-            Width = width;
-            Length = length;
-            _squares = new List<Square>();
+            MaxXCoordinate = maxXCoordinate;
+            MaxYCoordinate = maxYCoordinate;
+            _positions = new List<Position>();
         }
 
-        public List<Square> GenerateGrid()
+        public IList<Position> GenerateGrid()
         {
-            for (int row = 0; row < Width; row++)
+            for (int row = 0; row < MaxXCoordinate; row++)
             {
-                for (int column = 0; column < Length; column++)
+                for (int column = 0; column < MaxYCoordinate; column++)
                 {
-                    var square = new Square(row, column);
-                    _squares.Add(square);
+                    var square = new Position(row, column);
+                    _positions.Add(square);
                 }
             }
 
-            return _squares;
+            return _positions;
         }
     }
 }
