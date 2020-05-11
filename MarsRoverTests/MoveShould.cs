@@ -8,50 +8,64 @@ namespace MarsRoverTests
 {
     public class MoveShould
     {
+        private Move SutN;
+        private Move SutE;
+        private Move SutS;
+        public MoveShould()
+        {
+            SutN = new Move(new Position(0,0), Direction.N, new Grid(3,3));
+            
+            SutE = new Move(new Position(0,0), Direction.E, new Grid(3,3));
+            SutS = new Move(new Position(0,0), Direction.S, new Grid(3,3));
+        }
         [Fact]
         public void YCoordinateIncreaseByOneWhenFacingNorthAndMovingForward()
         {
             
-            var sut = new Move(new Square(0,0), Direction.N, new IGrid(3, 3));
-            var actualResult = sut.Forward();
-            var expectedResult = new Square(0, 1);
+            var actualResult = SutN.Forward();
+            var expectedResult = new Position(0, 1);
             
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
-          
+        }
+
+        [Fact]
+        public void YCoordinateResetsToZeroWhenMovingNorthAndFacingNorthFromMaximumLength()
+        {
+            var sut = new Move(new Position(0, 2), Direction.N, new Grid(3, 3) );
+            var actualResult = sut.Forward();
+            var expectedResult = new Position(0, 0);
+            
+            Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
+            Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
         }
 
         [Fact]
         public void XCoordinateIncreasesByOneWhenFacingEastAndMovingForward()
         {
-            var sut = new Move(new Square(0,0), Direction.E, );
-            var actualResult = sut.Forward();
-            var expectedResult = new Square(1, 0);
+            
+            var actualResult = SutE.Forward();
+            var expectedResult = new Position(1, 0);
             
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
             
         }
 
+        
+        
         [Fact]
         public void YCoordinateDecreasesByOneWhenFacingSouthAndMovingForward()
         {
-            Mock<IGrid> mockGrid = new Mock<IGrid>();
-            var expectedGrid = new List<Square>()
-            {
-                new Square(0, 0), new Square(0, 1), new Square(0, 2),
-                new Square(1, 0), new Square(1, 1), new Square(1, 2),
-                new Square(2, 0), new Square(2, 1), new Square(2, 2),
-
-            };
-            mockGrid.Setup(g => g.GenerateGrid()).Returns(expectedGrid);
-            var sut = new Move(new Square(0,0), Direction.S, mockGrid.Object);
-            var actualResult = sut.Forward();
-            var expectedResult = new Square(0, 2);
+            
+            var actualResult = SutS.Forward();
+            var expectedResult = new Position(0, 2);
             
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
         }
+        
+        
 
     }
 }

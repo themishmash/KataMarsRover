@@ -6,17 +6,17 @@ namespace kata_MarsRover
 {
     public class Move
     {
-        private Square _initialPosition;
+        private Position _initialPosition;
         private  Direction _initialDirection;
         private readonly IGrid _grid;
 
-        public Move(Square initialPosition, Direction initialDirection, IGrid grid)
+        public Move(Position initialPosition, Direction initialDirection, IGrid grid)
         {
             _initialPosition = initialPosition;
             _initialDirection = initialDirection;
             _grid = grid;
         }
-        public Square Forward()
+        public Position Forward()
         {
             int newXCoordinate;
             int newYCoordinate;
@@ -25,6 +25,7 @@ namespace kata_MarsRover
                 case Direction.N: //TODO: add max boundaries for other directions too, consider refactoring afterwards to a generic function
                     newXCoordinate = _initialPosition.XCoordinate;
                     newYCoordinate = _initialPosition.YCoordinate + 1;
+
                     break;
                 case Direction.E:
                     newXCoordinate = _initialPosition.XCoordinate + 1;
@@ -35,13 +36,32 @@ namespace kata_MarsRover
                     newYCoordinate = _initialPosition.YCoordinate - 1; //TODO: consider changing this to a method
                     if (newYCoordinate < 0)
                     {
-                        newYCoordinate += _grid.Width;
+                        newYCoordinate += _grid.MaxXCoordinate;
                     }
                     break;
+                
                 default:
                     throw new ArgumentException();
             }
-            return new Square(newXCoordinate, newYCoordinate);
+
+            var newPosition = CheckAndResetBoundaries(new Position(newXCoordinate, newYCoordinate));
+            
+            return newPosition;
+        }
+
+        private Position CheckAndResetBoundaries(Position position)
+        {
+            if (position.XCoordinate > _grid.MaxXCoordinate )
+            {
+               position.XCoordinate = 0;
+            }
+
+            if (position.YCoordinate > _grid.MaxYCoordinate)
+            {
+                position.YCoordinate = 0;
+            }
+
+            return position;
         }
     }
 }
