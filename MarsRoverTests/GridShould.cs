@@ -36,7 +36,7 @@ namespace MarsRoverTests
            public void GenerateGridWithSpecifiedDimensions()
            {
                var sut = new Grid(3, 3);
-               Assert.Equal(9, sut.GenerateGrid().Count);
+               Assert.Equal(16, sut.GenerateGrid().Count);
            }
            
 

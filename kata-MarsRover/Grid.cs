@@ -20,9 +20,9 @@ namespace kata_MarsRover
 
         public IList<Position> GenerateGrid()
         {
-            for (int row = 0; row < MaxXCoordinate; row++)
+            for (int row = 0; row <= MaxXCoordinate; row++)
             {
-                for (int column = 0; column < MaxYCoordinate; column++)
+                for (int column = 0; column <= MaxYCoordinate; column++)
                 {
                     var square = new Position(row, column);
                     _positions.Add(square);
