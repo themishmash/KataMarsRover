@@ -34,22 +34,36 @@ namespace kata_MarsRover
                 case Direction.S:
                     newXCoordinate = _initialPosition.XCoordinate;
                     newYCoordinate = _initialPosition.YCoordinate - 1; //TODO: consider changing this to a method
-                    if (newYCoordinate < 0)
-                    {
-                        newYCoordinate += _grid.MaxXCoordinate;
-                    }
                     break;
-                
+                case Direction.W:
+                    newXCoordinate = _initialPosition.XCoordinate - 1;
+                    newYCoordinate = _initialPosition.YCoordinate;
+                    break;
                 default:
                     throw new ArgumentException();
             }
 
-            var newPosition = CheckAndResetBoundaries(new Position(newXCoordinate, newYCoordinate));
+            var newPosition = CheckAndResetUpperBoundaries(new Position(newXCoordinate, newYCoordinate));
+            newPosition = CheckAndResetLowerBoundaries(newPosition);
             
             return newPosition;
         }
 
-        private Position CheckAndResetBoundaries(Position position)
+        private Position CheckAndResetLowerBoundaries(Position position)
+        {
+            if (position.XCoordinate < 0)
+            {
+                position.XCoordinate = _grid.MaxXCoordinate;
+            }
+            if (position.YCoordinate < 0)
+            {
+                position.YCoordinate = _grid.MaxYCoordinate;
+            }
+
+            return position;
+        }
+
+        private Position CheckAndResetUpperBoundaries(Position position)
         {
             if (position.XCoordinate > _grid.MaxXCoordinate )
             {
