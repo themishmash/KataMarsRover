@@ -30,12 +30,11 @@ namespace MarsRoverTests
         }
 
         [Fact]
-        public void YCoordinateResetsToZeroWhenMovingNorthAndFacingNorthFromMaximumLength()
+        public void YCoordinateResetsToOneWhenMovingForwardAndFacingNorthFromMaximumLength()
         {
-            var sut = new Move(new Position(0, 2), Direction.N, new Grid(3, 3) );
+            var sut = new Move(new Position(0, 3), Direction.N, new Grid(3, 3) );
             var actualResult = sut.Forward();
             var expectedResult = new Position(0, 0);
-            
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
         }
