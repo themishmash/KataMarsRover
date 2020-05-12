@@ -42,13 +42,16 @@ namespace kata_MarsRover
                 default:
                     throw new ArgumentException();
             }
-
-            var newPosition = CheckAndResetUpperBoundaries(new Position(newXCoordinate, newYCoordinate));
-            newPosition = CheckAndResetLowerBoundaries(newPosition);
             
-            return newPosition;
+            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate));
         }
 
+        private Position CheckBoundaries(Position position)
+        {
+            position = CheckAndResetLowerBoundaries(position);
+            position = CheckAndResetUpperBoundaries(position);
+            return position;
+        }
         private Position CheckAndResetLowerBoundaries(Position position)
         {
             if (position.XCoordinate < 0)
