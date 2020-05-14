@@ -22,33 +22,46 @@ namespace kata_MarsRover
             int newYCoordinate;
             switch (_initialDirection)
             {
-                case Direction.N: //TODO: add max boundaries for other directions too, consider refactoring afterwards to a generic function
+                case Direction.N:
                     newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = _initialPosition.YCoordinate + 1;
+                    newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
 
                     break;
                 case Direction.E:
-                    newXCoordinate = _initialPosition.XCoordinate + 1;
+                    newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
                     newYCoordinate = _initialPosition.YCoordinate;
                     break;
                 case Direction.S:
                     newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = _initialPosition.YCoordinate - 1; //TODO: consider changing this to a method
+                    newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
                     break;
                 case Direction.W:
-                    newXCoordinate = _initialPosition.XCoordinate - 1;
+                    newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
                     newYCoordinate = _initialPosition.YCoordinate;
                     break;
                 default:
                     throw new ArgumentException();
             }
-
-            var newPosition = CheckAndResetUpperBoundaries(new Position(newXCoordinate, newYCoordinate));
-            newPosition = CheckAndResetLowerBoundaries(newPosition);
             
-            return newPosition;
+            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate));
         }
 
+        private static int DecrementCoordinateBy1(int coordinate)
+        {
+            return coordinate - 1;
+        }
+        
+        private int IncrementCoordinateBy1(int coordinate)
+        {
+            return coordinate + 1;
+        }
+
+        private Position CheckBoundaries(Position position)
+        {
+            position = CheckAndResetLowerBoundaries(position);
+            position = CheckAndResetUpperBoundaries(position);
+            return position;
+        }
         private Position CheckAndResetLowerBoundaries(Position position)
         {
             if (position.XCoordinate < 0)
