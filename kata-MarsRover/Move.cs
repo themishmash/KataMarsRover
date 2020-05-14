@@ -7,20 +7,19 @@ namespace kata_MarsRover
     public class Move
     {
         private Position _initialPosition;
-        private  Direction _initialDirection;
+       // private  Direction _initialDirection;
         private readonly IGrid _grid;
 
-        public Move(Position initialPosition, Direction initialDirection, IGrid grid)
+        public Move(Position initialPosition, IGrid grid)
         {
             _initialPosition = initialPosition;
-            _initialDirection = initialDirection;
             _grid = grid;
         }
         public Position Forward()
         {
             int newXCoordinate;
             int newYCoordinate;
-            switch (_initialDirection)
+            switch (_initialPosition.Direction)
             {
                 case Direction.N:
                     newXCoordinate = _initialPosition.XCoordinate;
@@ -42,8 +41,8 @@ namespace kata_MarsRover
                 default:
                     throw new ArgumentException();
             }
-            
-            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate));
+
+            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction});
         }
 
         private static int DecrementCoordinateBy1(int coordinate)
