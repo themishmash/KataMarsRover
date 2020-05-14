@@ -89,6 +89,36 @@ namespace kata_MarsRover
 
             return position;
         }
+
+        public Position Backward()
+        {
+            int newXCoordinate;
+            int newYCoordinate;
+            switch (_initialPosition.Direction)
+            {
+                case Direction.N:
+                    newXCoordinate = _initialPosition.XCoordinate;
+                    newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
+                    break;
+                case Direction.E:
+                    newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
+                    newYCoordinate = _initialPosition.YCoordinate;
+                    break;
+                case Direction.S:
+                    newXCoordinate = _initialPosition.XCoordinate;
+                    newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
+                    break;
+                case Direction.W:
+                    newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
+                    newYCoordinate = _initialPosition.YCoordinate;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction});
+
+        }
     }
 }
 //TODO: method to check if rover can move or not (i.e. has boundaries been exceeded?)
