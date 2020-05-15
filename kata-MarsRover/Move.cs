@@ -19,30 +19,88 @@ namespace kata_MarsRover
         {
             int newXCoordinate;
             int newYCoordinate;
+            Position newPosition;
             switch (_initialPosition.Direction)
             {
+                   
                 case Direction.N:
-                    newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
+                    newPosition = IncrementYCoordinate();
 
                     break;
                 case Direction.E:
-                    newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
-                    newYCoordinate = _initialPosition.YCoordinate;
+                    newPosition = IncrementXCoordinate();
                     break;
                 case Direction.S:
-                    newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
+                    newPosition= DecrementYCoordinate();
                     break;
                 case Direction.W:
-                    newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
-                    newYCoordinate = _initialPosition.YCoordinate;
+                    newPosition = DecrementXCoordinate();
                     break;
                 default:
                     throw new ArgumentException();
             }
 
-            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction});
+            newPosition.Direction = _initialPosition.Direction;
+
+            return CheckBoundaries(newPosition);
+        }
+        
+        public Position Backward()
+        {
+            int newXCoordinate;
+            int newYCoordinate;
+            Position newPosition;
+            switch (_initialPosition.Direction)
+            {
+                case Direction.N:
+                    newPosition = DecrementYCoordinate();
+                    break;
+                case Direction.E:
+                    newPosition = DecrementXCoordinate();
+                    break;
+                case Direction.S:
+                    newPosition = IncrementYCoordinate();
+                    break;
+                case Direction.W:
+                    newPosition = IncrementXCoordinate();
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            newPosition.Direction = _initialPosition.Direction;
+
+            return CheckBoundaries(newPosition);
+
+        }
+
+        private Position DecrementXCoordinate()
+        {
+            var newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
+            var newYCoordinate = _initialPosition.YCoordinate;
+            return new Position(newXCoordinate, newYCoordinate);
+        }
+
+        private Position DecrementYCoordinate()
+        {
+            var newXCoordinate = _initialPosition.XCoordinate;
+            var newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
+            return new Position(newXCoordinate, newYCoordinate);
+        }
+
+        private Position IncrementXCoordinate()
+        {
+            
+            var newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
+            var newYCoordinate = _initialPosition.YCoordinate;
+            return new Position(newXCoordinate, newYCoordinate);
+        }
+
+        private Position IncrementYCoordinate()
+        {
+            var newXCoordinate = _initialPosition.XCoordinate;
+            var newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
+            return new Position(newXCoordinate, newYCoordinate);
         }
 
         private static int DecrementCoordinateBy1(int coordinate)
@@ -90,35 +148,7 @@ namespace kata_MarsRover
             return position;
         }
 
-        public Position Backward()
-        {
-            int newXCoordinate;
-            int newYCoordinate;
-            switch (_initialPosition.Direction)
-            {
-                case Direction.N:
-                    newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
-                    break;
-                case Direction.E:
-                    newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
-                    newYCoordinate = _initialPosition.YCoordinate;
-                    break;
-                case Direction.S:
-                    newXCoordinate = _initialPosition.XCoordinate;
-                    newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
-                    break;
-                case Direction.W:
-                    newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
-                    newYCoordinate = _initialPosition.YCoordinate;
-                    break;
-                default:
-                    throw new ArgumentException();
-            }
-
-            return CheckBoundaries(new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction});
-
-        }
+        
     }
 }
 //TODO: method to check if rover can move or not (i.e. has boundaries been exceeded?)
