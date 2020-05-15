@@ -6,7 +6,7 @@ namespace kata_MarsRover
 {
     public class Move
     {
-        private Position _initialPosition;
+        private readonly Position _initialPosition;
        // private  Direction _initialDirection;
         private readonly IGrid _grid;
 
@@ -19,26 +19,14 @@ namespace kata_MarsRover
         {
             int newXCoordinate;
             int newYCoordinate;
-            Position newPosition;
-            switch (_initialPosition.Direction)
+            var newPosition = _initialPosition.Direction switch
             {
-                   
-                case Direction.N:
-                    newPosition = IncrementYCoordinate();
-
-                    break;
-                case Direction.E:
-                    newPosition = IncrementXCoordinate();
-                    break;
-                case Direction.S:
-                    newPosition= DecrementYCoordinate();
-                    break;
-                case Direction.W:
-                    newPosition = DecrementXCoordinate();
-                    break;
-                default:
-                    throw new ArgumentException();
-            }
+                Direction.N => IncrementYCoordinate(),
+                Direction.E => IncrementXCoordinate(),
+                Direction.S => DecrementYCoordinate(),
+                Direction.W => DecrementXCoordinate(),
+                _ => throw new ArgumentException()
+            };
 
             newPosition.Direction = _initialPosition.Direction;
 
@@ -49,24 +37,14 @@ namespace kata_MarsRover
         {
             int newXCoordinate;
             int newYCoordinate;
-            Position newPosition;
-            switch (_initialPosition.Direction)
+            var newPosition = _initialPosition.Direction switch
             {
-                case Direction.N:
-                    newPosition = DecrementYCoordinate();
-                    break;
-                case Direction.E:
-                    newPosition = DecrementXCoordinate();
-                    break;
-                case Direction.S:
-                    newPosition = IncrementYCoordinate();
-                    break;
-                case Direction.W:
-                    newPosition = IncrementXCoordinate();
-                    break;
-                default:
-                    throw new ArgumentException();
-            }
+                Direction.N => DecrementYCoordinate(),
+                Direction.E => DecrementXCoordinate(),
+                Direction.S => IncrementYCoordinate(),
+                Direction.W => IncrementXCoordinate(),
+                _ => throw new ArgumentException()
+            };
 
             newPosition.Direction = _initialPosition.Direction;
 
