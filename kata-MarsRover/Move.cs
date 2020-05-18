@@ -7,7 +7,6 @@ namespace kata_MarsRover
     public class Move
     {
         private readonly Position _initialPosition;
-       // private  Direction _initialDirection;
         private readonly IGrid _grid;
 
         public Move(Position initialPosition, IGrid grid)
@@ -17,18 +16,14 @@ namespace kata_MarsRover
         }
         public Position Forward()
         {
-            int newXCoordinate;
-            int newYCoordinate;
-            var newPosition = _initialPosition.Direction switch
+            Position newPosition = _initialPosition.Direction switch
             {
-                Direction.N => IncrementYCoordinate(),
-                Direction.E => IncrementXCoordinate(),
-                Direction.S => DecrementYCoordinate(),
-                Direction.W => DecrementXCoordinate(),
+                Direction.North => IncrementYCoordinate(),
+                Direction.East => IncrementXCoordinate(),
+                Direction.South => DecrementYCoordinate(),
+                Direction.West => DecrementXCoordinate(),
                 _ => throw new ArgumentException()
             };
-
-            newPosition.Direction = _initialPosition.Direction;
 
             return CheckBoundaries(newPosition);
         }
@@ -39,31 +34,27 @@ namespace kata_MarsRover
             int newYCoordinate;
             var newPosition = _initialPosition.Direction switch
             {
-                Direction.N => DecrementYCoordinate(),
-                Direction.E => DecrementXCoordinate(),
-                Direction.S => IncrementYCoordinate(),
-                Direction.W => IncrementXCoordinate(),
+                Direction.North => DecrementYCoordinate(),
+                Direction.East => DecrementXCoordinate(),
+                Direction.South => IncrementYCoordinate(),
+                Direction.West => IncrementXCoordinate(),
                 _ => throw new ArgumentException()
             };
-
-            newPosition.Direction = _initialPosition.Direction;
-
             return CheckBoundaries(newPosition);
-
         }
 
         private Position DecrementXCoordinate()
         {
             var newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
             var newYCoordinate = _initialPosition.YCoordinate;
-            return new Position(newXCoordinate, newYCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction};
         }
 
         private Position DecrementYCoordinate()
         {
             var newXCoordinate = _initialPosition.XCoordinate;
             var newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
-            return new Position(newXCoordinate, newYCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction};
         }
 
         private Position IncrementXCoordinate()
@@ -71,14 +62,14 @@ namespace kata_MarsRover
             
             var newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
             var newYCoordinate = _initialPosition.YCoordinate;
-            return new Position(newXCoordinate, newYCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction};
         }
 
         private Position IncrementYCoordinate()
         {
             var newXCoordinate = _initialPosition.XCoordinate;
             var newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
-            return new Position(newXCoordinate, newYCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = _initialPosition.Direction};
         }
 
         private static int DecrementCoordinateBy1(int coordinate)
@@ -125,8 +116,5 @@ namespace kata_MarsRover
 
             return position;
         }
-
-        
     }
 }
-//TODO: method to check if rover can move or not (i.e. has boundaries been exceeded?)

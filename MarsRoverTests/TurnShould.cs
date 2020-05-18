@@ -9,9 +9,9 @@ namespace MarsRoverTests
         [Trait("Category", "TurnRight-North")]
         public void ChangeDirectionToEastIfFacingNorthAndTurningRight()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.N});
+            var sut = new Turn(new Position(0,0 ){Direction = Direction.North});
             var actualResult = sut.Right();
-            var expectedResult = new Position(0, 0){Direction = Direction.E};
+            var expectedResult = new Position(0, 0){Direction = Direction.East};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
             Assert.Equal(expectedResult.Direction, actualResult.Direction);
