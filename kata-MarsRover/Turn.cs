@@ -13,46 +13,27 @@ namespace kata_MarsRover
         private readonly Position _initialPosition;
         public Position Right()
         {
-            Direction newDirection;
-            switch (_initialPosition.Direction)
+            var newDirection = _initialPosition.Direction switch
             {
-                case Direction.North:
-                    newDirection = Direction.East;
-                    break;
-                case Direction.East:
-                    newDirection = Direction.South;
-                    break;
-                case Direction.South:
-                    newDirection = Direction.West;
-                    break;
-                case Direction.West:
-                    newDirection = Direction.North;
-                    break;
-                default: throw new ArgumentException();
-            }
+                Direction.North => Direction.East,
+                Direction.East => Direction.South,
+                Direction.South => Direction.West,
+                Direction.West => Direction.North,
+                _ => throw new ArgumentException()
+            };
             return new Position(_initialPosition.XCoordinate, _initialPosition.YCoordinate) {Direction = newDirection};
         }
 
         public Position Left()
         {
-            Direction newDirection;
-            switch (_initialPosition.Direction)
+            var newDirection = _initialPosition.Direction switch
             {
-                case Direction.North:
-                    newDirection = Direction.West;
-                    break;
-                case Direction.East:
-                    newDirection = Direction.North;
-                    break;
-                case Direction.South:
-                    newDirection = Direction.East;
-                    break;
-                case Direction.West:
-                    newDirection = Direction.South;
-                    break;
-                default: throw new ArgumentException();
-                
-            }
+                Direction.North => Direction.West,
+                Direction.East => Direction.North,
+                Direction.South => Direction.East,
+                Direction.West => Direction.South,
+                _ => throw new ArgumentException()
+            };
             return new Position(_initialPosition.XCoordinate, _initialPosition.YCoordinate) {Direction = newDirection};
         }
     }
