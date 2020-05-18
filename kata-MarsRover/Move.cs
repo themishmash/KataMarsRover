@@ -1,84 +1,73 @@
 using System;
 using System.Diagnostics;
-using MarsRoverTests;
+
 
 namespace kata_MarsRover
 {
     public class Move
     {
-        private readonly Position _initialPosition;
-       // private  Direction _initialDirection;
-        private readonly IGrid _grid;
+        // private readonly Position initialPosition;
+        // private readonly IGrid _grid;
 
-        public Move(Position initialPosition, IGrid grid)
+        // public Move(Position initialPosition, IGrid grid)
+        // {
+        //     initialPosition = initialPosition;
+        //     _grid = grid;
+      //  }
+        public static Position Forward(Position initialPosition, IGrid grid)
         {
-            _initialPosition = initialPosition;
-            _grid = grid;
-        }
-        public Position Forward()
-        {
-            int newXCoordinate;
-            int newYCoordinate;
-            var newPosition = _initialPosition.Direction switch
+            Position newPosition = initialPosition.Direction switch
             {
-                Direction.N => IncrementYCoordinate(),
-                Direction.E => IncrementXCoordinate(),
-                Direction.S => DecrementYCoordinate(),
-                Direction.W => DecrementXCoordinate(),
+                Direction.North => IncrementYCoordinate(initialPosition),
+                Direction.East => IncrementXCoordinate(initialPosition),
+                Direction.South => DecrementYCoordinate(initialPosition),
+                Direction.West => DecrementXCoordinate(initialPosition),
                 _ => throw new ArgumentException()
             };
 
-            newPosition.Direction = _initialPosition.Direction;
-
-            return CheckBoundaries(newPosition);
+            return CheckBoundaries(newPosition, grid);
         }
         
-        public Position Backward()
+        public static Position Backward(Position initialPosition, IGrid grid)
         {
-            int newXCoordinate;
-            int newYCoordinate;
-            var newPosition = _initialPosition.Direction switch
+            var newPosition = initialPosition.Direction switch
             {
-                Direction.N => DecrementYCoordinate(),
-                Direction.E => DecrementXCoordinate(),
-                Direction.S => IncrementYCoordinate(),
-                Direction.W => IncrementXCoordinate(),
+                Direction.North => DecrementYCoordinate(initialPosition),
+                Direction.East => DecrementXCoordinate(initialPosition),
+                Direction.South => IncrementYCoordinate(initialPosition),
+                Direction.West => IncrementXCoordinate(initialPosition),
                 _ => throw new ArgumentException()
             };
-
-            newPosition.Direction = _initialPosition.Direction;
-
-            return CheckBoundaries(newPosition);
-
+            return CheckBoundaries(newPosition, grid);
         }
 
-        private Position DecrementXCoordinate()
+        private static Position DecrementXCoordinate(Position initialPosition)
         {
-            var newXCoordinate = DecrementCoordinateBy1(_initialPosition.XCoordinate);
-            var newYCoordinate = _initialPosition.YCoordinate;
-            return new Position(newXCoordinate, newYCoordinate);
+            var newXCoordinate = DecrementCoordinateBy1(initialPosition.XCoordinate);
+            var newYCoordinate = initialPosition.YCoordinate;
+            return new Position(newXCoordinate, newYCoordinate) {Direction = initialPosition.Direction};
         }
 
-        private Position DecrementYCoordinate()
+        private static Position DecrementYCoordinate(Position initialPosition)
         {
-            var newXCoordinate = _initialPosition.XCoordinate;
-            var newYCoordinate = DecrementCoordinateBy1(_initialPosition.YCoordinate);
-            return new Position(newXCoordinate, newYCoordinate);
+            var newXCoordinate = initialPosition.XCoordinate;
+            var newYCoordinate = DecrementCoordinateBy1(initialPosition.YCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = initialPosition.Direction};
         }
 
-        private Position IncrementXCoordinate()
+        private static Position IncrementXCoordinate(Position initialPosition)
         {
             
-            var newXCoordinate = IncrementCoordinateBy1(_initialPosition.XCoordinate);
-            var newYCoordinate = _initialPosition.YCoordinate;
-            return new Position(newXCoordinate, newYCoordinate);
+            var newXCoordinate = IncrementCoordinateBy1(initialPosition.XCoordinate);
+            var newYCoordinate = initialPosition.YCoordinate;
+            return new Position(newXCoordinate, newYCoordinate) {Direction = initialPosition.Direction};
         }
 
-        private Position IncrementYCoordinate()
+        private static Position IncrementYCoordinate(Position initialPosition)
         {
-            var newXCoordinate = _initialPosition.XCoordinate;
-            var newYCoordinate = IncrementCoordinateBy1(_initialPosition.YCoordinate);
-            return new Position(newXCoordinate, newYCoordinate);
+            var newXCoordinate = initialPosition.XCoordinate;
+            var newYCoordinate = IncrementCoordinateBy1(initialPosition.YCoordinate);
+            return new Position(newXCoordinate, newYCoordinate) {Direction = initialPosition.Direction};
         }
 
         private static int DecrementCoordinateBy1(int coordinate)
@@ -86,47 +75,44 @@ namespace kata_MarsRover
             return coordinate - 1;
         }
         
-        private int IncrementCoordinateBy1(int coordinate)
+        private static int IncrementCoordinateBy1(int coordinate)
         {
             return coordinate + 1;
         }
 
-        private Position CheckBoundaries(Position position)
+        private static Position CheckBoundaries(Position position, IGrid grid)
         {
-            position = CheckAndResetLowerBoundaries(position);
-            position = CheckAndResetUpperBoundaries(position);
+            position = CheckAndResetLowerBoundaries(position, grid);
+            position = CheckAndResetUpperBoundaries(position, grid);
             return position;
         }
-        private Position CheckAndResetLowerBoundaries(Position position)
+        private static Position CheckAndResetLowerBoundaries(Position position, IGrid grid)
         {
             if (position.XCoordinate < 0)
             {
-                position.XCoordinate = _grid.MaxXCoordinate;
+                position.XCoordinate = grid.MaxXCoordinate;
             }
             if (position.YCoordinate < 0)
             {
-                position.YCoordinate = _grid.MaxYCoordinate;
+                position.YCoordinate = grid.MaxYCoordinate;
             }
 
             return position;
         }
 
-        private Position CheckAndResetUpperBoundaries(Position position)
+        private static Position CheckAndResetUpperBoundaries(Position position, IGrid grid)
         {
-            if (position.XCoordinate > _grid.MaxXCoordinate )
+            if (position.XCoordinate > grid.MaxXCoordinate )
             {
                position.XCoordinate = 0;
             }
 
-            if (position.YCoordinate > _grid.MaxYCoordinate)
+            if (position.YCoordinate > grid.MaxYCoordinate)
             {
                 position.YCoordinate = 0;
             }
 
             return position;
         }
-
-        
     }
 }
-//TODO: method to check if rover can move or not (i.e. has boundaries been exceeded?)
