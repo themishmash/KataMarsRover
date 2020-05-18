@@ -1,6 +1,6 @@
 using kata_MarsRover;
 
-namespace MarsRoverTests
+namespace kata_MarsRover
 {
     public class Position
     {

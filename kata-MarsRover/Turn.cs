@@ -1,5 +1,4 @@
 using System;
-using MarsRoverTests;
 
 namespace kata_MarsRover
 {

@@ -1,4 +1,5 @@
 using System;
+using kata_MarsRover;
 using Xunit;
 
 namespace MarsRoverTests
