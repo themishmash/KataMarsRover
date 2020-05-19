@@ -9,8 +9,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnRight")]
         public void ChangeDirectionToEastIfFacingNorthAndTurningRight()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.North});
-            var actualResult = sut.Right();
+            var position = new Position(0,0 ){Direction = Direction.North};
+            var actualResult = Turn.Right(position);
             var expectedResult = new Position(0, 0){Direction = Direction.East};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -21,8 +21,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnRight")]
         public void ChangeDirectionToSouthIfFacingEastAndTurningRight()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.East});
-            var actualResult = sut.Right();
+            var position = new Position(0,0 ){Direction = Direction.East};
+            var actualResult = Turn.Right(position);
             var expectedResult = new Position(0, 0){Direction = Direction.South};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -33,8 +33,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnRight")]
         public void ChangeDirectionToWestIfFacingSouthAndTurningRight()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.South});
-            var actualResult = sut.Right();
+            var position = new Position(0,0 ){Direction = Direction.South};
+            var actualResult = Turn.Right(position);
             var expectedResult = new Position(0, 0){Direction = Direction.West};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -45,8 +45,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnRight")]
         public void ChangeDirectionToNorthIfFacingWestAndTurningRight()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.West});
-            var actualResult = sut.Right();
+            var position = new Position(0,0 ){Direction = Direction.West};
+            var actualResult = Turn.Right(position);
             var expectedResult = new Position(0, 0){Direction = Direction.North};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -57,8 +57,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnLeft")]
         public void ChangeDirectionToWestIfFacingNorthAndTurningLeft()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.North});
-            var actualResult = sut.Left();
+            var position = new Position(0,0 ){Direction = Direction.North};
+            var actualResult = Turn.Left(position);
             var expectedResult = new Position(0, 0){Direction = Direction.West};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -69,8 +69,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnLeft")]
         public void ChangeDirectionToNorthIfFacingEastAndTurningLeft()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.East});
-            var actualResult = sut.Left();
+            var position = new Position(0,0 ){Direction = Direction.East};
+            var actualResult = Turn.Left(position);
             var expectedResult = new Position(0, 0){Direction = Direction.North};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -81,8 +81,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnLeft")]
         public void ChangeDirectionToEastIfFacingSouthAndTurningLeft()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.South});
-            var actualResult = sut.Left();
+            var position = new Position(0,0 ){Direction = Direction.South};
+            var actualResult = Turn.Left(position);
             var expectedResult = new Position(0, 0){Direction = Direction.East};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
@@ -93,8 +93,8 @@ namespace MarsRoverTests
         [Trait("Category", "TurnLeft")]
         public void ChangeDirectionToSouthIfFacingWestAndTurningLeft()
         {
-            var sut = new Turn(new Position(0,0 ){Direction = Direction.West});
-            var actualResult = sut.Left();
+            var position = new Position(0,0 ){Direction = Direction.West};
+            var actualResult = Turn.Left(position);
             var expectedResult = new Position(0, 0){Direction = Direction.South};
             Assert.Equal(expectedResult.XCoordinate, actualResult.XCoordinate);
             Assert.Equal(expectedResult.YCoordinate, actualResult.YCoordinate);
