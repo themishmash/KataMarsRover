@@ -4,19 +4,11 @@ using System.Diagnostics;
 
 namespace kata_MarsRover
 {
-    public class Move
+    public static class Move
     {
-        // private readonly Position initialPosition;
-        // private readonly IGrid _grid;
-
-        // public Move(Position initialPosition, IGrid grid)
-        // {
-        //     initialPosition = initialPosition;
-        //     _grid = grid;
-      //  }
         public static Position Forward(Position initialPosition, IGrid grid)
         {
-            Position newPosition = initialPosition.Direction switch
+            var newPosition = initialPosition.Direction switch
             {
                 Direction.North => IncrementYCoordinate(initialPosition),
                 Direction.East => IncrementXCoordinate(initialPosition),
@@ -40,6 +32,7 @@ namespace kata_MarsRover
             };
             return CheckBoundaries(newPosition, grid);
         }
+        
 
         private static Position DecrementXCoordinate(Position initialPosition)
         {
