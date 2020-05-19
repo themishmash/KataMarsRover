@@ -2,17 +2,11 @@ using System;
 
 namespace kata_MarsRover
 {
-    public class Turn
+    public static class Turn
     {
-        public Turn(Position initialPosition)
+        public static Position Right(Position initialPosition)
         {
-            _initialPosition = initialPosition;
-        }
-        
-        private readonly Position _initialPosition;
-        public Position Right()
-        {
-            var newDirection = _initialPosition.Direction switch
+            var newDirection = initialPosition.Direction switch
             {
                 Direction.North => Direction.East,
                 Direction.East => Direction.South,
@@ -20,12 +14,12 @@ namespace kata_MarsRover
                 Direction.West => Direction.North,
                 _ => throw new ArgumentException()
             };
-            return new Position(_initialPosition.XCoordinate, _initialPosition.YCoordinate) {Direction = newDirection};
+            return new Position(initialPosition.XCoordinate, initialPosition.YCoordinate) {Direction = newDirection};
         }
 
-        public Position Left()
+        public static Position Left(Position initialPosition)
         {
-            var newDirection = _initialPosition.Direction switch
+            var newDirection = initialPosition.Direction switch
             {
                 Direction.North => Direction.West,
                 Direction.East => Direction.North,
@@ -33,7 +27,7 @@ namespace kata_MarsRover
                 Direction.West => Direction.South,
                 _ => throw new ArgumentException()
             };
-            return new Position(_initialPosition.XCoordinate, _initialPosition.YCoordinate) {Direction = newDirection};
+            return new Position(initialPosition.XCoordinate, initialPosition.YCoordinate) {Direction = newDirection};
         }
     }
 }
