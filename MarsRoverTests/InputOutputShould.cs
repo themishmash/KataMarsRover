@@ -15,6 +15,16 @@ namespace MarsRoverTests
             Assert.Equal(expected.YCoordinate, actual.YCoordinate);
             Assert.Equal(expected.Direction, actual.Direction);
         }
+
+        [Fact]
+        public void ParseCommandStringToAnArray()
+        {
+            const string testCommandString = "FFLBRF";
+            var expected = new char[] {'F', 'F', 'L', 'B', 'R', 'F'};
+            
+            Assert.Equal(expected, InputOutput.ParseCommandToArray(testCommandString));
+
+        }
         
     }
 }
