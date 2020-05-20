@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace kata_MarsRover
 {
@@ -11,6 +12,12 @@ namespace kata_MarsRover
             var yCoordinate = ParseStringToInt(elements[1]);
             var direction = ParseStringToDirection(elements[2]);
             return new Position(xCoordinate,yCoordinate){Direction = direction};
+        }
+        
+        public static char[] ParseCommandToArray(string commandString)
+        {
+            var commandArray = commandString.ToCharArray();
+            return commandArray;
         }
         
         private static int ParseStringToInt(string number)
@@ -36,7 +43,7 @@ namespace kata_MarsRover
             };
             return parsedDirection;
         }
+        
 
-       
     }
 }

@@ -75,11 +75,11 @@ namespace kata_MarsRover
 
         private static Position CheckBoundaries(Position position, IGrid grid)
         {
-            position = CheckAndResetLowerBoundaries(position, grid);
-            position = CheckAndResetUpperBoundaries(position, grid);
+            position = ResetLowerBoundaries(position, grid);
+            position = ResetUpperBoundaries(position, grid);
             return position;
         }
-        private static Position CheckAndResetLowerBoundaries(Position position, IGrid grid)
+        private static Position ResetLowerBoundaries(Position position, IGrid grid)
         {
             if (position.XCoordinate < 0)
             {
@@ -93,7 +93,7 @@ namespace kata_MarsRover
             return position;
         }
 
-        private static Position CheckAndResetUpperBoundaries(Position position, IGrid grid)
+        private static Position ResetUpperBoundaries(Position position, IGrid grid)
         {
             if (position.XCoordinate > grid.MaxXCoordinate )
             {
