@@ -7,15 +7,15 @@ namespace kata_MarsRover
     public class Command
     {
         
-        public Command (char moveCommand, Position initialPosition, Grid grid)
+        public Command (char moveCommand, IMove move)
         {
             _moveCommand = moveCommand;
-            _initialPosition = initialPosition;
-            _grid = grid;
+            _move = move;
         }
         
         
         private readonly char _moveCommand;
+        private readonly IMove _move;
         private readonly Position _initialPosition;
         private readonly Grid _grid;
 
@@ -26,7 +26,7 @@ namespace kata_MarsRover
             switch (_moveCommand)
             {
                 case 'F':
-                    newPosition = Move.Forward(_initialPosition, _grid);
+                    newPosition = _move.Forward();
                     break;
                 default:
                     throw new ArgumentException();
