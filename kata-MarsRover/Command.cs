@@ -13,13 +13,9 @@ namespace kata_MarsRover
             _move = move;
         }
         
-        
         private readonly char _moveCommand;
         private readonly IMove _move;
-        private readonly Position _initialPosition;
-        private readonly Grid _grid;
-
-
+        
         public Position ExecuteMove()
         {
             Position newPosition;
@@ -27,6 +23,9 @@ namespace kata_MarsRover
             {
                 case 'F':
                     newPosition = _move.Forward();
+                    break;
+                case 'B':
+                    newPosition = _move.Backward();
                     break;
                 default:
                     throw new ArgumentException();
