@@ -7,14 +7,21 @@ namespace kata_MarsRover
     public class Command
     {
         
-        public Command (char moveCommand, IMove move)
+        public Command (char moveCommand, Position initialPosition, Grid grid)
         {
             _moveCommand = moveCommand;
-            _move = move;
+            _initialPosition = initialPosition;
+            _grid = grid;
+            _turn = new Turn(initialPosition); //TODO make Turn class non-static
+            _move = new Move(initialPosition, grid);
+          
         }
         
         private readonly char _moveCommand;
+        private readonly Position _initialPosition;
+        private readonly Grid _grid;
         private readonly IMove _move;
+        private readonly ITurn _turn;
         
         public Position ExecuteMove()
         {

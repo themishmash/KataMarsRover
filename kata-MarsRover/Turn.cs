@@ -2,7 +2,7 @@ using System;
 
 namespace kata_MarsRover
 {
-    public static class Turn
+    public static class Turn:ITurn
     {
         public static Position Right(Position initialPosition)
         {
