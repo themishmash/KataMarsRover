@@ -4,24 +4,35 @@ using System.Reflection;
 
 namespace kata_MarsRover
 {
-    public static class Command
+    public class Command
     {
-        public static Position Move(char moveCommand)
+        
+        public Command (char moveCommand, Position initialPosition, Grid grid)
         {
-            throw new System.NotImplementedException();
+            _moveCommand = moveCommand;
+            _initialPosition = initialPosition;
+            _grid = grid;
         }
+        
+        
+        private readonly char _moveCommand;
+        private readonly Position _initialPosition;
+        private readonly Grid _grid;
 
 
-        private static Dictionary<char, Func<char, Position>> _moveCommands =
-            new Dictionary<char, Func<char, Position>>
+        public Position ExecuteMove()
+        {
+            Position newPosition;
+            switch (_moveCommand)
             {
-                {'F', kata_MarsRover.Move.Forward()}
-            };
-        
-        
-        
-        
-        
-        
+                case 'F':
+                    newPosition = Move.Forward(_initialPosition, _grid);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+
+            return newPosition;
+        }
     }
 }

@@ -10,10 +10,10 @@ namespace MarsRoverTests
         public void InvokeCorrectMoveBasedOnCharacterInput()
         {
             var initialPosition = new Position(0,0){Direction = Direction.North};
-            var moveCommand = 'F';
+            const char moveCommand = 'F';
             var expected = new Position(0, 1) {Direction = Direction.North };
-            
-            var actual = Command.Move(moveCommand);
+            var sut = new Command(moveCommand, initialPosition, new Grid(3,3));
+            var actual = sut.ExecuteMove();
             
             Assert.Equal(expected.XCoordinate, actual.XCoordinate);
             Assert.Equal(expected.YCoordinate, actual.YCoordinate);
