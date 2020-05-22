@@ -4,5 +4,9 @@ namespace kata_MarsRover
     {
         Position Forward();
         Position Backward();
+
+        Position Left();
+
+        Position Right();
     }
 }
