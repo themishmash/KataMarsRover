@@ -1,5 +1,6 @@
 using kata_MarsRover;
 using Xunit; 
+using Moq;
 
 
 namespace MarsRoverTests
@@ -13,13 +14,17 @@ namespace MarsRoverTests
         {
             var initialPosition = new Position(0,0){Direction = Direction.North};
             var expected = new Position(xCoordinate, yCoordinate) {Direction = Direction.North };
-            var sut = new Command(moveCommand, new Move(initialPosition, new Grid(3, 3)));
+            var grid = new Grid(3, 3);
+            var sut = new Command(moveCommand, initialPosition, grid);
             var actual = sut.ExecuteMove();
             
             Assert.Equal(expected.XCoordinate, actual.XCoordinate);
             Assert.Equal(expected.YCoordinate, actual.YCoordinate);
             Assert.Equal(expected.Direction, actual.Direction);
         }
+        
+
+        
         
        
         

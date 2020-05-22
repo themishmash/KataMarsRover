@@ -12,14 +12,14 @@ namespace kata_MarsRover
             _moveCommand = moveCommand;
             _initialPosition = initialPosition;
             _grid = grid;
-            _turn = new Turn(initialPosition); //TODO make Turn class non-static
+            _turn = new Turn(initialPosition);
             _move = new Move(initialPosition, grid);
           
         }
         
         private readonly char _moveCommand;
         private readonly Position _initialPosition;
-        private readonly Grid _grid;
+        private readonly IGrid _grid;
         private readonly IMove _move;
         private readonly ITurn _turn;
         
