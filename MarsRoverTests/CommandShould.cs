@@ -7,35 +7,48 @@ namespace MarsRoverTests
 {
     public class CommandShould
     {
-        [Theory]
-        [InlineData('F', 0, 1)]
-        [InlineData('B', 0, 3)]
-        public void InvokeCorrectMoveBasedOnCharacterInput(char moveCommand, int xCoordinate, int yCoordinate)
-        {
-            var initialPosition = new Position(0,0){Direction = Direction.North};
-            var expected = new Position(xCoordinate, yCoordinate) {Direction = Direction.North };
-            var grid = new Grid(3, 3);
-            var move = new Move(initialPosition, grid);
-            var sut = new Command(moveCommand, move);
-            var actual = sut.ExecuteMove();
-            
-            Assert.Equal(expected.XCoordinate, actual.XCoordinate);
-            Assert.Equal(expected.YCoordinate, actual.YCoordinate);
-            Assert.Equal(expected.Direction, actual.Direction);
-        }
+        // public CommandShould()
+        // {
+        //   
+        //     mockMove = new Mock<IMove>();
+        //     sut = new Command(new char[]{'F','B','R','L'}, mockMove.Object);
+        //     var actual = sut.ExecuteCommands();
+        // }
+        //
+        // Mock<IMove> mockMove;
+        // Command sut;
 
         [Fact]
         public void MoveForwardWithFCommand()
         {
-            var initialPosition = new Position(0,0){Direction = Direction.North};
-            var grid = new Grid(3, 3);
+            var sut = new Command(new char[]{'F','B','R','L'}, new Position(1, 1){Direction = Direction.North}, new Grid(3, 3));
+            var actual = sut.MoveRover();
             
-            Mock<IMove> mockMove = new Mock<IMove>();
-            var sut = new Command('F', mockMove.Object);
-            sut.ExecuteMove();
-            
-            mockMove.Verify(m => m.Forward(), Times.Once);
+            var expected = new Position(1, 1);
+            Assert.Equal(expected.XCoordinate, actual.XCoordinate);
+            Assert.Equal(expected.YCoordinate, actual.YCoordinate);
         }
+        
+        [Fact]
+        public void MoveBackwardWithBCommand()
+        {
+
+            //mockMove.Verify(m => m.Backward(), Times.Once);
+        }
+        
+        [Fact]
+        public void MoveRightWithRCommand()
+        {
+            //mockMove.Verify(m => m.Right(), Times.Once);
+        }
+        
+        [Fact]
+        public void MoveLeftWithLCommand()
+        {
+           // mockMove.Verify(m => m.Left(), Times.Once);
+        }
+        
+        
 
     }
 }
