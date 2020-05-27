@@ -16,53 +16,38 @@ namespace kata_MarsRover
         }
         
         private readonly char[] _moveCommands;
-        private Position _initialPosition;
+        private readonly Position _initialPosition;
         private readonly IGrid _grid;
-
-
-        private Position ExecuteMove(char moveCommand, IMove move)
-        {
-            Position newPosition;
-            switch (moveCommand)
-            {
-                case 'F':
-                    newPosition = move.Forward();
-                    break;
-                case 'B':
-                    newPosition = move.Backward();
-                    break;
-                case 'R':
-                    newPosition = move.Right();
-                    break;
-                case 'L':
-                    newPosition = move.Left();
-                    break;
-                default:
-                    throw new ArgumentException();
-            }
-
-            return newPosition;
-        }
-
-        public Position ExecuteCommands(List<char> commands)
-        {
-            Position newPosition = _initialPosition;
-            if (!commands.Any())
-            {
-                return newPosition;
-            }
-            IMove move = new Move(newPosition, _grid);
-
-            newPosition = ExecuteMove(commands.First(), move);
-            commands.RemoveAt(0);
-            return ExecuteCommands(commands);
-        }
-
+        
         public Position MoveRover()
         {
             var commands = _moveCommands.ToList();
-            var newPosition = ExecuteCommands(commands);
+            var newPosition = ExecuteCommands(commands, _initialPosition);
             return newPosition;
         }
+        
+        private Position ExecuteMove(char moveCommand, Position initialPosition)
+        {
+            IMove move = new Move(initialPosition, _grid);
+            var newPosition = moveCommand switch
+            {
+                'F' => move.Forward(),
+                'B' => move.Backward(),
+                'R' => move.Right(),
+                'L' => move.Left(),
+                _ => throw new ArgumentException()
+            };
+
+            return newPosition;
+        }
+
+        private Position ExecuteCommands(IList<char> commands, Position initialPosition)
+        {
+            if (!commands.Any()) return initialPosition;
+            var newPosition = ExecuteMove(commands.First(), initialPosition);
+            commands.RemoveAt(0);
+            return ExecuteCommands(commands, newPosition);
+        }
+        
     }
 }

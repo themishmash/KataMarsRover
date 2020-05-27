@@ -6,12 +6,12 @@ namespace kata_MarsRover
 {
     public class Move : IMove
     {
-
         public Move(Position initialPosition, IGrid grid)
         {
             _initialPosition = initialPosition;
             _grid = grid;
         }
+        
         private readonly Position _initialPosition;
         private readonly IGrid _grid;
         public Position Forward()
