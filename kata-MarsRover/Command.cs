@@ -16,7 +16,7 @@ namespace kata_MarsRover
         }
         
         private readonly char[] _moveCommands;
-        private Position _initialPosition;
+        private readonly Position _initialPosition;
         private readonly IGrid _grid;
         
         public Position MoveRover()
