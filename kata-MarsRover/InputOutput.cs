@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace kata_MarsRover
 {
     public static class InputOutput
     {
-        public static Position CreatePosition(string initialPosition)
+        public static bool IsCoordinateValid(string initialCoordinates)
         {
-            var elements = initialPosition.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            var xCoordinate = ParseStringToInt(elements[0]);
-            var yCoordinate = ParseStringToInt(elements[1]);
-            var direction = ParseStringToDirection(elements[2]);
-            return new Position(xCoordinate,yCoordinate){Direction = direction};
+            var elements = initialCoordinates.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var isXCoordinateValid = int.TryParse(elements[0], out var xCoordinate);
+            var isYCoordinateValid = int.TryParse(elements[0], out var YCoordinate);
+            return isXCoordinateValid && isYCoordinateValid;
         }
         
         public static char[] ParseCommandToArray(string commandString)
@@ -20,17 +20,25 @@ namespace kata_MarsRover
             return commandArray;
         }
         
-        private static int ParseStringToInt(string number)
+        public static bool IsCommandValid(IEnumerable<char> commandArray)
         {
-            var isNumberValid = int.TryParse(number, out var coordinate);
-            if (!isNumberValid)
-            {
-                throw new ArgumentException("Not a valid number");
-            }
-            return coordinate;
+            var validCommands = new char[]{'F','B','L','R'};
+            return commandArray.All(c => validCommands.Contains(c));
+        }
+        
+        public static bool IsDirectionValid(string direction)
+        {
+            var validDirections = new string[]{"N","E","S","W"};
+            return validDirections.Contains(direction);
+        }
+        
+        public static int[] ParseStringCoordinatesToInt(string number)
+        {
+            var stringCoordinates = number.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            return stringCoordinates.Select(int.Parse).ToArray();
         }
 
-        private static Direction ParseStringToDirection(string direction)
+        public static Direction ParseStringToDirection(string direction)
         {
             var directionUpper = direction.ToUpper();
             var parsedDirection = directionUpper switch
@@ -39,10 +47,11 @@ namespace kata_MarsRover
                 "E" => Direction.East,
                 "S" => Direction.South,
                 "W" => Direction.West,
-                _ => throw new ApplicationException()
+                _ => throw new ArgumentException()
             };
             return parsedDirection;
         }
+        
         
 
     }
