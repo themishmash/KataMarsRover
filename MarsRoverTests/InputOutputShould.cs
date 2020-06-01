@@ -6,14 +6,24 @@ namespace MarsRoverTests
     public class InputOutputShould
     {
         [Fact]
-        public void ParseStringToPositionObject()
+        public void ParseStringToCoordinates()
         {
+            var expected = new int[] {1, 2};
             const string testInitialPositionString = "1,2,N";
-            var expected = new Position(1, 2 ){Direction = Direction.North};
-            var actual = InputOutput.CreatePosition(testInitialPositionString);
-            Assert.Equal(expected.XCoordinate, actual.XCoordinate);
-            Assert.Equal(expected.YCoordinate, actual.YCoordinate);
-            Assert.Equal(expected.Direction, actual.Direction);
+            var actual = InputOutput.ParseStringCoordinatesToInt("1, 2");
+            
+            Assert.Equal(expected[0], actual[0]);
+            Assert.Equal(expected[1], actual[1]);
+
+        }
+
+        [Fact]
+        public void ParseStringToDirection()
+        {
+            const Direction expected = Direction.East;
+            var actual = InputOutput.ParseStringToDirection("E");
+            
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -25,6 +35,6 @@ namespace MarsRoverTests
             Assert.Equal(expected, InputOutput.ParseCommandToArray(testCommandString));
 
         }
-        
+
     }
 }
