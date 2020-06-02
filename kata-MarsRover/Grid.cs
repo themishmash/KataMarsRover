@@ -8,27 +8,43 @@ namespace kata_MarsRover
         private readonly IList<Position> _positions;
         public int MaxXCoordinate { get; }
         public int MaxYCoordinate { get; }
+
+      
         
         
         public Grid(int maxXCoordinate, int maxYCoordinate)
         {
             MaxXCoordinate = maxXCoordinate;
             MaxYCoordinate = maxYCoordinate;
-            _positions = new List<Position>();
+            _positions = GenerateGrid();
+
         }
 
         public IList<Position> GenerateGrid()
         {
-            for (int row = 0; row <= MaxXCoordinate; row++)
+            var grid = new List<Position>();
+            for (var row = 0; row <= MaxXCoordinate; row++)
             {
-                for (int column = 0; column <= MaxYCoordinate; column++)
+                for (var column = 0; column <= MaxYCoordinate; column++)
                 {
                     var square = new Position(row, column);
-                    _positions.Add(square);
+                    grid.Add(square);
                 }
             }
 
-            return _positions;
+            return grid;
+        }
+
+        public void AddObstacles()
+        {
+            for (var i = 0; i < 3; i++)
+            {
+                var random = new Random();
+                var randomIndex = random.Next(0, (_positions.Count-1));
+                var obstacle = _positions[randomIndex];
+                obstacle.HasObstacle = true;
+            }
+            
         }
     }
 }

@@ -4,10 +4,12 @@ namespace kata_MarsRover
 {
     public class Position
     {
+        public bool HasObstacle { get; set; }
         public Position(int xCoordinate, int yCoordinate)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;
+            HasObstacle = false;
         }
 
         public int XCoordinate { get; set; }
