@@ -7,7 +7,8 @@ namespace kata_MarsRover
         static void Main(string[] args)
         {
             var grid = new Grid(3, 3);
-            var coordinates = GetInitialCoordinates(grid);
+            grid.AddObstacles();
+            var coordinates = GetCoordinates(grid);
             var initialDirection = GetInitialDirection();
             var commands = GetValidCommands();
             
@@ -19,6 +20,51 @@ namespace kata_MarsRover
 
             Console.WriteLine($"Your new location is: {newLocation.XCoordinate}, {newLocation.YCoordinate},{newLocation.Direction}");
 
+        }
+        
+        
+
+        private static int[] GetCoordinates(IGrid grid)
+        {
+            int[] coordinatesNumbers; 
+            bool areCoordinatesWithinGridBoundaries;
+            do
+            {
+                coordinatesNumbers = ValidateCoordinateNumbers();
+                areCoordinatesWithinGridBoundaries = ValidateCoordinateBoundaries(grid, coordinatesNumbers);
+            } while (!areCoordinatesWithinGridBoundaries);
+
+            return coordinatesNumbers;
+        }
+        
+        private static int[] ValidateCoordinateNumbers()
+        {
+            bool areCoordinatesValidNumbers;
+            string initialCoordinates;
+            do
+            {
+                Console.WriteLine("Enter your initial position in the format X-Coordinate,Y-Coordinate");
+                initialCoordinates = Console.ReadLine();
+                areCoordinatesValidNumbers = Validator.AreNumbersValid(initialCoordinates);
+                if (!areCoordinatesValidNumbers)
+                {
+                    Console.WriteLine("Your coordinates are not valid numbers.");
+                }
+            } while (!areCoordinatesValidNumbers);
+    
+            return InputOutput.ParseStringCoordinatesToInt(initialCoordinates);
+        }
+
+        private static bool ValidateCoordinateBoundaries(IGrid grid, int[] initialCoordinates)
+        {
+
+            var areCoordinatesWithinGridBoundaries = Validator.AreCoordinatesValid(initialCoordinates, grid);
+            if (!areCoordinatesWithinGridBoundaries)
+            {
+                Console.WriteLine("Your coordinates are not within the boundaries.");
+            }
+
+            return areCoordinatesWithinGridBoundaries;
         }
 
         private static char[] GetValidCommands()
@@ -58,27 +104,6 @@ namespace kata_MarsRover
             return initialDirection;
         }
 
-        private static int[] GetInitialCoordinates(Grid grid)
-        {
-            string initialCoordinates;
-            bool areCoordinatesValidNumbers = false;
-            int[] coordinates = new int[2];
-            bool areCoordinatesWithinGridBoundaries = false;
-            do
-            {
-                Console.WriteLine(
-                    "Enter your initial position in the format X-Coordinate,Y-Coordinate");
-                initialCoordinates = Console.ReadLine();
-                areCoordinatesValidNumbers = Validator.AreNumbersValid(initialCoordinates);
-                if (!areCoordinatesValidNumbers)
-                {
-                    Console.WriteLine("Invalid coordinate");
-                    coordinates = InputOutput.ParseStringCoordinatesToInt(initialCoordinates);
-                    areCoordinatesWithinGridBoundaries = Validator.AreCoordinatesValid(coordinates, grid);
-                }
-            } while (!areCoordinatesValidNumbers || !areCoordinatesWithinGridBoundaries);
-
-            return coordinates;
-        }
+       
     }
 }

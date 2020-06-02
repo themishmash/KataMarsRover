@@ -37,16 +37,23 @@ namespace kata_MarsRover
                 'L' => move.Left(),
                 _ => throw new ArgumentException()
             };
-
+            
             return newPosition;
         }
 
         private Position ExecuteCommands(IList<char> commands, Position initialPosition)
         {
             if (!commands.Any()) return initialPosition;
+            
             var newPosition = ExecuteMove(commands.First(), initialPosition);
+            if (newPosition.HasObstacle)
+            {
+                Console.WriteLine("Rover cannot move further due to obstacle.");
+                return initialPosition;
+            }
             commands.RemoveAt(0);
             return ExecuteCommands(commands, newPosition);
+           
         }
         
     }
