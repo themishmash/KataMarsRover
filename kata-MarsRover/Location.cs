@@ -2,10 +2,10 @@ using kata_MarsRover;
 
 namespace kata_MarsRover
 {
-    public class Position
+    public class Location
     {
         public bool HasObstacle { get; set; }
-        public Position(int xCoordinate, int yCoordinate)
+        public Location(int xCoordinate, int yCoordinate)
         {
             XCoordinate = xCoordinate;
             YCoordinate = yCoordinate;

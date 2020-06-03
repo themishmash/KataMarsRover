@@ -14,10 +14,10 @@ namespace MarsRoverTests
         [InlineData(new char[]{'F','L','F','F'}, 3, 2, Direction.West)]
         public void ExecuteCommandSeries(char[] commands, int expectedXCCoordinate, int expectedYCoordinate, Direction expectedDirection)
         {
-            var sut = new Command(commands, new Position(1, 1){Direction = Direction.North}, new Grid(3, 3));
+            var sut = new Command(commands, new Location(1, 1){Direction = Direction.North}, new Grid(3, 3));
             var actual = sut.MoveRover();
             
-            var expected = new Position(expectedXCCoordinate, expectedYCoordinate) {Direction = expectedDirection};
+            var expected = new Location(expectedXCCoordinate, expectedYCoordinate) {Direction = expectedDirection};
             Assert.Equal(expected.XCoordinate, actual.XCoordinate);
             Assert.Equal(expected.YCoordinate, actual.YCoordinate);
             Assert.Equal(expected.Direction, actual.Direction);

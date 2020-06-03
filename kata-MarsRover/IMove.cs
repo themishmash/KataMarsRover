@@ -2,11 +2,11 @@ namespace kata_MarsRover
 {
     public interface IMove
     {
-        Position Forward();
-        Position Backward();
+        Location Forward();
+        Location Backward();
 
-        Position Left();
+        Location Left();
 
-        Position Right();
+        Location Right();
     }
 }
