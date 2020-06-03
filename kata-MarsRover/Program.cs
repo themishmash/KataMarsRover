@@ -7,12 +7,13 @@ namespace kata_MarsRover
         static void Main(string[] args)
         {
             var grid = new Grid(3, 3);
-            grid.AddObstacles();
+            IObstacleRandomizer obstacleRandomizer = new ObstacleRandomizer();
+            grid.AddObstacles(obstacleRandomizer);
             var coordinates = GetCoordinates(grid);
             var initialDirection = GetInitialDirection();
             var commands = GetValidCommands();
             
-            var initialPosition = new Position(coordinates[0], coordinates[1]) {Direction = initialDirection};
+            var initialPosition = new Location(coordinates[0], coordinates[1]) {Direction = initialDirection};
             
             var commandExecutor = new Command(commands, initialPosition, grid);
             
@@ -43,8 +44,8 @@ namespace kata_MarsRover
             string initialCoordinates;
             do
             {
-                Console.WriteLine("Enter your initial position in the format X-Coordinate,Y-Coordinate");
-                initialCoordinates = Console.ReadLine();
+                Console.WriteLine("Enter your initial position in the format X-Coordinate,Y-Coordinate"); //todo: wrap in output class
+                initialCoordinates = Console.ReadLine(); // TODO: use an interface to enable reading from files etc, split input and output to separate classes
                 areCoordinatesValidNumbers = Validator.AreNumbersValid(initialCoordinates);
                 if (!areCoordinatesValidNumbers)
                 {

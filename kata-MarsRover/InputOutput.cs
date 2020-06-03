@@ -8,7 +8,7 @@ namespace kata_MarsRover
     {
         public static char[] ParseCommandToArray(string commandString)
         {
-            var commandArray = commandString.ToCharArray();
+            var commandArray = commandString.ToUpper().ToCharArray();
             return commandArray;
         }
         

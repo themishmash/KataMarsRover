@@ -8,27 +8,27 @@ namespace kata_MarsRover
     public class Command
     {
         
-        public Command (char[] moveCommands, Position initialPosition, IGrid grid)
+        public Command (char[] moveCommands, Location initialLocation, IGrid grid)
         {
             _moveCommands = moveCommands;
-            _initialPosition = initialPosition;
+            _initialLocation = initialLocation;
             _grid = grid;
         }
         
         private readonly char[] _moveCommands;
-        private readonly Position _initialPosition;
+        private readonly Location _initialLocation;
         private readonly IGrid _grid;
         
-        public Position MoveRover()
+        public Location MoveRover()
         {
             var commands = _moveCommands.ToList();
-            var newPosition = ExecuteCommands(commands, _initialPosition);
+            var newPosition = ExecuteCommands(commands, _initialLocation);
             return newPosition;
         }
         
-        private Position ExecuteMove(char moveCommand, Position initialPosition)
+        private Location ExecuteMove(char moveCommand, Location initialLocation)
         {
-            IMove move = new Move(initialPosition, _grid);
+            IMove move = new Move(initialLocation, _grid);
             var newPosition = moveCommand switch
             {
                 'F' => move.Forward(),
@@ -41,15 +41,15 @@ namespace kata_MarsRover
             return newPosition;
         }
 
-        private Position ExecuteCommands(IList<char> commands, Position initialPosition)
+        private Location ExecuteCommands(IList<char> commands, Location initialLocation)
         {
-            if (!commands.Any()) return initialPosition;
+            if (!commands.Any()) return initialLocation;
             
-            var newPosition = ExecuteMove(commands.First(), initialPosition);
+            var newPosition = ExecuteMove(commands.First(), initialLocation);
             if (newPosition.HasObstacle)
             {
                 Console.WriteLine("Rover cannot move further due to obstacle.");
-                return initialPosition;
+                return initialLocation;
             }
             commands.RemoveAt(0);
             return ExecuteCommands(commands, newPosition);
