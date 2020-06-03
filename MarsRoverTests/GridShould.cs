@@ -45,8 +45,10 @@ namespace MarsRoverTests
            {
                var sut = new Grid(3, 3);
                var mockObstacleRandomizer = new Mock<IObstacleRandomizer>();
-               mockObstacleRandomizer.SetupSequence(r => r.Next(It.IsAny<int>(), It.IsAny<int>())).Returns(2).Returns(5)
-                   .Returns(7); //(0,2), (1,1), (1,3)
+               mockObstacleRandomizer.SetupSequence(r => r.Next(It.IsAny<int>(), It.IsAny<int>()))
+                   .Returns(2) //(0,2)
+                   .Returns(5) //(1,1)
+                   .Returns(7);//(1,3)
                sut.AddObstacles(mockObstacleRandomizer.Object);
                
                Assert.True(sut.GetLocation(0, 2).HasObstacle);
