@@ -22,6 +22,28 @@ namespace MarsRoverTests
             Assert.Equal(expected.YCoordinate, actual.YCoordinate);
             Assert.Equal(expected.Direction, actual.Direction);
         }
+        
+        [Theory]
+        [InlineData(new char[]{'F','F','F','F'}, 0, 2, Direction.East)]
+        public void StopExecutingIfObstacleEncountered(char[] commands, int expectedXCCoordinate, int expectedYCoordinate, Direction expectedDirection)
+        {
+            var mockObstacleRandomizer = new Mock<IObstacleRandomizer>();
+            var grid = new Grid(3, 3);
+            var sut = new Command(commands, new Location(0, 0){Direction = Direction.East}, new Grid(3, 3));
+            
+            mockObstacleRandomizer.SetupSequence(r => r.Next(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(2) //(0,2)
+                .Returns(5) //(1,1)
+                .Returns(7);//(1,3)
+            grid.AddObstacles(mockObstacleRandomizer.Object);
+            
+            var actual = sut.MoveRover();
+               
+            Assert.Equal(0, actual.XCoordinate);
+            Assert.Equal(2, actual.YCoordinate);
+            Assert.Equal(Direction.East, actual.Direction);
+
+        }
 
     }
 }
