@@ -57,6 +57,7 @@ namespace MarsRoverTests
                Assert.False(sut.GetLocation(0,0).HasObstacle);
 
            }
+
            
 
     }

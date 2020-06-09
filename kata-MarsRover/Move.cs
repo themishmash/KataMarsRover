@@ -24,6 +24,8 @@ namespace kata_MarsRover
                 Direction.West => DecrementXCoordinate(),
                 _ => throw new ArgumentException()
             };
+            
+            
 
             return CheckBoundaries(newPosition);
         }
@@ -51,8 +53,11 @@ namespace kata_MarsRover
                 Direction.West => Direction.North,
                 _ => throw new ArgumentException()
             };
-            return new Location(_initialLocation.XCoordinate, _initialLocation.YCoordinate) {Direction = 
-            newDirection, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(_initialLocation.XCoordinate, _initialLocation.YCoordinate)
+            {
+                Direction = newDirection, 
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+            };
         }
 
         public Location Left()
@@ -65,21 +70,34 @@ namespace kata_MarsRover
                 Direction.West => Direction.South,
                 _ => throw new ArgumentException()
             };
-            return new Location(_initialLocation.XCoordinate, _initialLocation.YCoordinate) {Direction = newDirection, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(_initialLocation.XCoordinate, _initialLocation.YCoordinate) 
+            {
+                Direction = newDirection, 
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+                    
+            };
         }
         
         private Location DecrementXCoordinate()
         {
             var newXCoordinate = DecrementCoordinateBy1(_initialLocation.XCoordinate);
             var newYCoordinate = _initialLocation.YCoordinate;
-            return new Location(newXCoordinate, newYCoordinate) {Direction = _initialLocation.Direction, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(newXCoordinate, newYCoordinate)
+            {
+                Direction = _initialLocation.Direction,
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+            };
         }
 
         private Location DecrementYCoordinate()
         {
             var newXCoordinate = _initialLocation.XCoordinate;
             var newYCoordinate = DecrementCoordinateBy1(_initialLocation.YCoordinate);
-            return new Location(newXCoordinate, newYCoordinate) {Direction = _initialLocation.Direction, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(newXCoordinate, newYCoordinate)            
+            {
+                Direction = _initialLocation.Direction,
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+            };
         }
 
         private Location IncrementXCoordinate()
@@ -87,14 +105,22 @@ namespace kata_MarsRover
             
             var newXCoordinate = IncrementCoordinateBy1(_initialLocation.XCoordinate);
             var newYCoordinate = _initialLocation.YCoordinate;
-            return new Location(newXCoordinate, newYCoordinate) {Direction = _initialLocation.Direction, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(newXCoordinate, newYCoordinate)
+            {
+                Direction = _initialLocation.Direction,
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+            };
         }
 
         private Location IncrementYCoordinate()
         {
             var newXCoordinate = _initialLocation.XCoordinate;
             var newYCoordinate = IncrementCoordinateBy1(_initialLocation.YCoordinate);
-            return new Location(newXCoordinate, newYCoordinate) {Direction = _initialLocation.Direction, HasObstacle = _initialLocation.HasObstacle};
+            return new Location(newXCoordinate, newYCoordinate)            
+            {
+                Direction = _initialLocation.Direction,
+                HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
+            };
         }
 
         private static int DecrementCoordinateBy1(int coordinate)
