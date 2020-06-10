@@ -46,11 +46,13 @@ namespace kata_MarsRover
             if (!commands.Any()) return initialLocation;
             
             var newPosition = ExecuteMove(commands.First(), initialLocation);
+            
             if (newPosition.HasObstacle)
             {
-                Console.WriteLine("Rover cannot move further due to obstacle.");
+                Console.WriteLine($"Rover cannot move further due to obstacle at {newPosition.XCoordinate},{newPosition.YCoordinate}.");
                 return initialLocation;
             }
+            Console.WriteLine($"You have moved to {newPosition.XCoordinate}, {newPosition.YCoordinate},{initialLocation.Direction}");
             commands.RemoveAt(0);
             return ExecuteCommands(commands, newPosition);
            

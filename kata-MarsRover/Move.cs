@@ -74,7 +74,6 @@ namespace kata_MarsRover
             {
                 Direction = newDirection, 
                 HasObstacle = _grid.GetLocation(_initialLocation.XCoordinate, _initialLocation.YCoordinate).HasObstacle
-                    
             };
         }
         
