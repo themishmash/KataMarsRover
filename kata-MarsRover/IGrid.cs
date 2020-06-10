@@ -9,5 +9,7 @@ namespace kata_MarsRover
         
         public int MaxYCoordinate { get; }
         IList<Location> GenerateGrid();
+
+        Location GetLocation(int xCoordinate, int yCoordinate); 
     }
 }
