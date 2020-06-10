@@ -25,8 +25,8 @@ namespace kata_MarsRover
             {
                 for (var column = 0; column <= MaxYCoordinate; column++)
                 {
-                    var square = new Location(row, column);
-                    grid.Add(square);
+                    var location = new Location(row, column);
+                    grid.Add(location);
                 }
             }
 
